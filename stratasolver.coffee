@@ -100,7 +100,6 @@ class StrataSolver
 
   solve: ->
     @data = clone(@puzzle)
-    console.log "solve!"
     used = []
     for i in [0...@stripes]
       used[i] = false
@@ -150,6 +149,12 @@ main = ->
   filename = args[0]
   solver = new StrataSolver(filename)
   moveList = solver.solve()
-  console.log JSON.stringify(moveList, null, 2)
+  lastColor = -1
+  for move in moveList
+    if lastColor != move.color
+      console.log "* Color #{move.color}"
+      lastColor = move.color
+    console.log "          -> stripe #{move.stripe}"
+  # console.log JSON.stringify(moveList, null, 2)
 
 main()
